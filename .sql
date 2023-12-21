@@ -46,3 +46,18 @@ where l.`language` = 'hindi'  order by length(c.area);
 update  countries
 set  national_day = '1946-06-02'
 where  name = 'Italy';
+-- 11. Selezionare le nazioni il cui national day è avvenuto prima del 1900, ordinate per national day dal più recente al meno recente
+select national_day, name 
+from countries c 
+where national_day  < '1900-01-01' order by national_day desc;
+-- 12.Contare quante lingue sono parlate in Italia
+select language 
+from languages l 
+join country_languages cl on l.language_id = cl.language_id 
+join countries c on cl.country_id = c.country_id 
+where c.name = 'Italy';
+-- 13.Per la regione Antarctica mostrare il valore dell’area totale e dell’area media delle nazioni
+select r.name as region,SUM(C.area) as TotalArea, AVG(C.area) as AverageArea
+from countries C
+join regions r  on c.region_id  = r.region_id
+where r.name  = 'Antarctica';
